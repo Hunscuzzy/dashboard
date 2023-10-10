@@ -1,0 +1,10 @@
+{
+  "advantages": [
+    { "title": "Speed", "paragraph": "Fast and reliable services." },
+    { "title": "Quality", "paragraph": "We never compromise on quality." },
+    {
+      "title": "Support",
+      "paragraph": "Our support team is always here to help."
+    }
+  ]
+}

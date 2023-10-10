@@ -1,15 +1,16 @@
 "use client";
-import { ReactNode, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { ReactNode, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 
-const AuthWrapper = ({ children }: { children: ReactNode }) => {
+const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { user } = useAuthContext();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (user == null) router.push("/login");
-  }, [user]);
+    if (user == null && pathname !== "/") router.push("/login");
+  }, [user, pathname]);
 
   return user ? children : null;
 };
