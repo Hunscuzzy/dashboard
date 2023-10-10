@@ -1,9 +1,9 @@
 "use client";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 
-const Page: React.FC = () => {
+const AuthWrapper = ({ children }: { children: ReactNode }) => {
   const { user } = useAuthContext();
   const router = useRouter();
 
@@ -11,7 +11,7 @@ const Page: React.FC = () => {
     if (user == null) router.push("/login");
   }, [user]);
 
-  return <h1>Only logged in users can view this page</h1>;
+  return user ? children : null;
 };
 
-export default Page;
+export default AuthWrapper;
