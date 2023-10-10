@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
+import LoggedLayout from "@/components/layout/LoggedLayout";
 
 const Page: React.FC = () => {
   const { user } = useAuthContext();
@@ -11,7 +12,11 @@ const Page: React.FC = () => {
     if (user == null) router.push("/login");
   }, [user]);
 
-  return <h1>Only logged in users can view this page</h1>;
+  return (
+    <LoggedLayout>
+      <h1>Only logged in users can view this page</h1>
+    </LoggedLayout>
+  );
 };
 
 export default Page;

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 const Main: React.FC<{ children: ReactNode }> = ({ children }) => {
-  return <div className='p-4 flex-1'>{children}</div>;
+  return <main className='p-4 flex-1'>{children}</main>;
 };
 
 export default Main;
