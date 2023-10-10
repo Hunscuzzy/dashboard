@@ -1,8 +1,10 @@
 import { AuthContextProvider } from "@/context/AuthContext";
 import "./globals.css";
 import type { Metadata } from "next";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { Inter } from "next/font/google";
 import AuthWrapper from "@/components/authentication/AuthWrapper";
+import theme from "@/config/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <AuthContextProvider>
-          <AuthWrapper>{children}</AuthWrapper>
-        </AuthContextProvider>
+        <ThemeProvider theme={theme}>
+          <AuthContextProvider>
+            <AuthWrapper>{children}</AuthWrapper>
+          </AuthContextProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
