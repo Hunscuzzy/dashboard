@@ -1,7 +1,7 @@
 import Main from "@/components/layout/Main";
 import data from "@/data/homepage.json";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div className='bg-gray-100 min-h-screen flex flex-col'>
       <header className='bg-blue-600 text-white p-6 rounded'>
@@ -38,4 +38,6 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
+
+export default Home;
