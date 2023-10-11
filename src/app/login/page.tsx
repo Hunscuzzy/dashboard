@@ -1,27 +1,26 @@
 "use client";
-import React, { FormEvent, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import signIn from "@/services/auth/signIn";
 import INTERNALS_LINKS from "@/config/routes";
 import SignInForm from "@/components/authentication/SignInForm";
 import SignUpForm from "@/components/authentication/SignUpForm";
 
-const Page: React.FC = () => {
+const Login: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const router = useRouter();
 
   const handleSubmit = useCallback(() => {
     return router.push(INTERNALS_LINKS.DASHBOARD);
-  }, []);
+  }, [router]);
   return (
     <div className='min-h-screen flex'>
       <div className='flex-1 flex flex-col justify-center items-center p-16'>
         <h1 className='mb-8 text-2xl'>{isSignUp ? "Sign Up" : "Log In"}</h1>
         {isSignUp ? (
-          <SignInForm onSubmit={handleSubmit} />
-        ) : (
           <SignUpForm onSubmit={handleSubmit} />
+        ) : (
+          <SignInForm onSubmit={handleSubmit} />
         )}
         <p className='mt-4'>
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
@@ -44,4 +43,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+export default Login;

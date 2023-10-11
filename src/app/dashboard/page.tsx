@@ -4,19 +4,19 @@ import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 import LoggedLayout from "@/components/layout/LoggedLayout";
 
-const Page: React.FC = () => {
+const Dashboard: React.FC = () => {
   const { user } = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {
     if (user == null) router.push("/login");
-  }, [user]);
+  }, [user, router]);
 
   return (
     <LoggedLayout>
-      <h1>Only logged in users can view this page</h1>
+      <h1>Dashboard</h1>
     </LoggedLayout>
   );
 };
 
-export default Page;
+export default Dashboard;

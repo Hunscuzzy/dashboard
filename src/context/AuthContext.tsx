@@ -1,5 +1,4 @@
 "use client";
-
 import React, {
   ReactNode,
   useEffect,
@@ -8,6 +7,7 @@ import React, {
   createContext,
   useMemo,
 } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import { User, onAuthStateChanged, getAuth } from "firebase/auth";
 import firebase_app from "@/config/firebase";
 
@@ -47,7 +47,13 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
   const value = useMemo(() => ({ user }), [user]);
   return (
     <AuthContext.Provider value={value}>
-      {loading ? <div>Loading...</div> : children}
+      {loading ? (
+        <div className='flex justify-center items-center min-w-screen min-h-screen bg-primary-light'>
+          <CircularProgress color='secondary' />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

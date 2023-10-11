@@ -9,10 +9,10 @@ const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (user == null && pathname !== "/") router.push("/login");
-  }, [user, pathname]);
+    if (user == null) router.push("/login");
+  }, [user, pathname, router]);
 
-  return user ? children : null;
+  return children;
 };
 
 export default AuthWrapper;

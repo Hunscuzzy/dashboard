@@ -53,7 +53,7 @@ const SignInForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
         error={Boolean(errors.password)}
         helperText={errors.password?.message as string}
       />
-      <Button variant='contained' color='primary' type='submit'>
+      <Button variant='contained' type='submit'>
         Log In
       </Button>
     </form>

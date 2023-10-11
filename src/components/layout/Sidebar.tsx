@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Drawer from "@mui/material/Drawer";
 import { sidebarLinks } from "@/data/navigation";
+import { Logout } from "@mui/icons-material";
+import logout from "@/services/auth/logout";
 
 const Sidebar: React.FC = () => {
   return (
@@ -31,6 +33,12 @@ const Sidebar: React.FC = () => {
           ))}
         </ul>
       </nav>
+      <button
+        onClick={logout}
+        className='mt-auto w-full py-8 text-center justify-center items-center flex gap-2 text-secondary'
+      >
+        <Logout /> <p>Logout</p>
+      </button>
     </Drawer>
   );
 };
