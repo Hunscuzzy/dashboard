@@ -15,7 +15,7 @@ const Login: React.FC = () => {
   }, [router]);
   return (
     <div className='min-h-screen flex'>
-      <div className='flex-1 flex flex-col justify-center items-center p-16'>
+      <div className='bg-primary-light flex-1 flex flex-col justify-center items-center p-16'>
         <h1 className='mb-8 text-2xl'>{isSignUp ? "Sign Up" : "Log In"}</h1>
         {isSignUp ? (
           <SignUpForm onSubmit={handleSubmit} />
