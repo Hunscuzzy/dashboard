@@ -2,8 +2,8 @@
 import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import INTERNALS_LINKS from "@/config/routes";
-import SignInForm from "@/components/authentication/SignInForm";
-import SignUpForm from "@/components/authentication/SignUpForm";
+import SignInForm from "@/app/login/_components/SignInForm";
+import SignUpForm from "@/app/login/_components/SignUpForm";
 
 const Login: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);

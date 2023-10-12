@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 
-const Dashboard: React.FC = () => {
+const Settings: React.FC = () => {
   const { user } = useAuthContext();
   const router = useRouter();
 
@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
     if (user == null) router.push("/login");
   }, [user, router]);
 
-  return <h1>Dashboard</h1>;
+  return <h1>Settings</h1>;
 };
 
-export default Dashboard;
+export default Settings;

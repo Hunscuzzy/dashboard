@@ -2,23 +2,23 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import { SignUpFormData } from "@/services/auth/types";
-import { useSignUp } from "./effects";
-import { LocalDining } from "@mui/icons-material";
+import { SignInFormData } from "@/services/auth/types";
+import { useSignIn } from "./effects";
 
-const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
+const SignInForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
   const {
     register,
     handleSubmit: handleRhfSubmit,
     formState: { errors },
-  } = useForm<SignUpFormData>();
+  } = useForm<SignInFormData>();
 
-  const { signUp, isLoading, isError } = useSignUp();
+  const { signIn, isLoading, isError } = useSignIn();
 
   const handleSubmit = useCallback(
-    async (formData: SignUpFormData) => {
-      await signUp(formData);
+    async (formData: SignInFormData) => {
+      await signIn(formData);
       if (!isError) {
         onSubmit();
       }
@@ -30,24 +30,6 @@ const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
       className='flex flex-col gap-4'
       onSubmit={handleRhfSubmit(handleSubmit)}
     >
-      <div className='flex gap-4'>
-        <TextField
-          fullWidth
-          type='text'
-          label='Firstname'
-          {...register("firstname", { required: "Firstname is required" })}
-          error={Boolean(errors.firstname)}
-          helperText={errors.firstname?.message as string}
-        />
-        <TextField
-          fullWidth
-          type='text'
-          label='Lastname'
-          {...register("lastname", { required: "Lastname is required" })}
-          error={Boolean(errors.lastname)}
-          helperText={errors.lastname?.message as string}
-        />
-      </div>
       <div className='flex gap-4'>
         <TextField
           fullWidth
@@ -72,14 +54,14 @@ const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
         />
       </div>
       <Button
-        startIcon={isLoading ? <LocalDining /> : null}
+        startIcon={isLoading ? <CircularProgress color='secondary' /> : null}
         variant='contained'
         type='submit'
       >
-        Sign Up
+        Log In
       </Button>
     </form>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Logout from "@mui/icons-material/Logout";
 import Drawer from "@mui/material/Drawer";
 import { sidebarLinks } from "@/data/navigation";
-import { Logout } from "@mui/icons-material";
 import logout from "@/services/auth/logout";
 
 const Sidebar: React.FC = () => {
@@ -20,10 +20,10 @@ const Sidebar: React.FC = () => {
       anchor='left'
     >
       <nav>
-        <ul className='flex flex-col gap-y-8'>
+        <ul className='flex flex-col gap-y-2 m-2'>
           {sidebarLinks.map(({ Icon, ...link }, i) => (
             <Link
-              className='p-4 gap-4 bg-primary-light hover:bg-primary transition-colors rounded flex items-center'
+              className='p-2 gap-4 bg-primary-light hover:bg-primary transition-colors rounded flex items-center'
               href={link.uri}
               key={i}
             >

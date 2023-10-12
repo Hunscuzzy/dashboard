@@ -1,7 +1,7 @@
 enum INTERNALS_LINKS {
-  SIGNIN = "/sign-in",
-  SIGNUP = "/sign-up",
+  LOGIN = "/login",
   DASHBOARD = "/dashboard",
+  SETTINGS = "/settings",
 }
 
 export default INTERNALS_LINKS;
