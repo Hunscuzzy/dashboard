@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
+import Section from "../_components/Section";
+import EditionForm from "./_components/EditionForm";
 
 const Settings: React.FC = () => {
   const { user } = useAuthContext();
@@ -11,7 +13,13 @@ const Settings: React.FC = () => {
     if (user == null) router.push("/login");
   }, [user, router]);
 
-  return <h1>Settings</h1>;
+  return (
+    <div className=''>
+      <Section>
+        <EditionForm />
+      </Section>
+    </div>
+  );
 };
 
 export default Settings;

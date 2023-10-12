@@ -55,7 +55,6 @@ const SignInForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
       </div>
       <Button
         startIcon={isLoading ? <CircularProgress color='secondary' /> : null}
-        variant='contained'
         type='submit'
       >
         Log In

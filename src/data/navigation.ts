@@ -1,5 +1,5 @@
 import INTERNALS_LINKS from "@/config/routes";
-import { SvgIconComponent } from "@mui/icons-material";
+import { SvgIconComponent, Videocam } from "@mui/icons-material";
 import GridView from "@mui/icons-material/GridView";
 import Code from "@mui/icons-material/Code";
 import Settings from "@mui/icons-material/Settings";
@@ -14,10 +14,10 @@ const sidebarLinks: {
   {
     title: "Video Production",
     uri: INTERNALS_LINKS.DASHBOARD,
-    Icon: GridView,
+    Icon: Videocam,
   },
   { title: "Real Estate", uri: INTERNALS_LINKS.DASHBOARD, Icon: GridView },
-  { title: "Account", uri: INTERNALS_LINKS.SETTINGS, Icon: Settings },
+  { title: "Settings", uri: INTERNALS_LINKS.SETTINGS, Icon: Settings },
 ];
 
 export { sidebarLinks };
