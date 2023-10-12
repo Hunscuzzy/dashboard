@@ -1,16 +1,17 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import firebase_app from "@/config/firebase";
+import { SignUpFormData } from "./types";
 
 const auth = getAuth(firebase_app);
 const db = getFirestore();
 
-export default async function signUp(
-  email: string,
-  password: string,
-  firstname: string,
-  lastname: string
-) {
+export default async function signUp({
+  email,
+  password,
+  firstname,
+  lastname,
+}: SignUpFormData) {
   let result = null,
     error = null;
   try {

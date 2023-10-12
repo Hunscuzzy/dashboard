@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import { AuthContextProvider } from "@/context/AuthContext";
 import "./globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import AuthWrapper from "@/components/authentication/AuthWrapper";
 

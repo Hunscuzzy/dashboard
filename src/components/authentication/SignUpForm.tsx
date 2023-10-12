@@ -3,34 +3,25 @@ import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import signUp from "@/services/auth/signup";
-
-interface FormData {
-  email: string;
-  password: string;
-  firstname: string;
-  lastname: string;
-}
+import { SignUpFormData } from "@/services/auth/types";
+import { useSignUp } from "./effects";
+import { LocalDining } from "@mui/icons-material";
 
 const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
   const {
     register,
     handleSubmit: handleRhfSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<SignUpFormData>();
+
+  const { signUp, isLoading, isError } = useSignUp();
 
   const handleSubmit = useCallback(
-    async (data: FormData) => {
-      const { result, error } = await signUp(
-        data.email,
-        data.password,
-        data.firstname,
-        data.lastname
-      );
-      if (error) {
-        return console.log(error);
+    async (formData: SignUpFormData) => {
+      await signUp(formData);
+      if (!isError) {
+        onSubmit();
       }
-      onSubmit();
     },
     [onSubmit]
   );
@@ -80,8 +71,12 @@ const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
           helperText={errors.password?.message as string}
         />
       </div>
-      <Button variant='contained' type='submit'>
-        Log In
+      <Button
+        startIcon={isLoading ? <LocalDining /> : null}
+        variant='contained'
+        type='submit'
+      >
+        Sign Up
       </Button>
     </form>
   );

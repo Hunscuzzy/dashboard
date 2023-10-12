@@ -10,9 +10,10 @@ const Login: React.FC = () => {
 
   const router = useRouter();
 
-  const handleSubmit = useCallback(() => {
-    return router.push(INTERNALS_LINKS.DASHBOARD);
-  }, [router]);
+  const handleSubmit = useCallback(
+    () => router.push(INTERNALS_LINKS.DASHBOARD),
+    [router]
+  );
   return (
     <div className='min-h-screen flex'>
       <div className='bg-primary-light flex-1 flex flex-col justify-center items-center p-16'>
