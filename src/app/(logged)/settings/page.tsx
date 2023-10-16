@@ -1,17 +1,17 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/context/AuthContext";
+import { useAuth } from "@/app/_contexts/AuthContext";
 import Section from "../_components/Section";
 import EditionForm from "./_components/EditionForm";
 
 const Settings: React.FC = () => {
-  const { user } = useAuthContext();
+  const { currentUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (user == null) router.push("/login");
-  }, [user, router]);
+    if (currentUser == null) router.push("/login");
+  }, [currentUser, router]);
 
   return (
     <div className=''>

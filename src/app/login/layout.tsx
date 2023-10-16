@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useAuthContext } from "@/context/AuthContext";
+import { useAuth } from "../_contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -11,14 +11,14 @@ export default function LoggedLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useAuthContext();
+  const { currentUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       router.push("/dashboard");
     }
-  }, [user, router]);
+  }, [currentUser, router]);
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );

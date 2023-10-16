@@ -1,9 +1,17 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
+import { useUserQuery } from "@/services/account/useUserQuery";
+import { useAuth } from "@/app/_contexts/AuthContext";
 
 const EditionForm: React.FC = () => {
+  const { currentUser } = useAuth();
+  const { data, isLoading, isError } = useUserQuery(currentUser?.uid);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>An error occurred</p>;
+
   const {
     register,
     handleSubmit: handleRhfSubmit,
