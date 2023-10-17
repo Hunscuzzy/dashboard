@@ -1,30 +1,47 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import { useUserQuery } from "@/services/account/useUserQuery";
+import {
+  useUpdateUserMutation,
+  useUserQuery,
+} from "@/services/account/queries";
 import { useAuth } from "@/app/_contexts/AuthContext";
+import { AccountFormData } from "@/services/auth/types";
 
 const EditionForm: React.FC = () => {
   const { currentUser } = useAuth();
-  const { data, isLoading, isError } = useUserQuery(currentUser?.uid);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>An error occurred</p>;
+  const { data, isLoading } = useUserQuery(currentUser?.uid ?? "");
+  const { mutate: updateUser } = useUpdateUserMutation();
 
   const {
+    formState: { isDirty },
     register,
     handleSubmit: handleRhfSubmit,
     formState: { errors },
-  } = useForm();
+    reset,
+  } = useForm<AccountFormData>();
 
-  const handleSubmit = useCallback(async (formData) => {
-    console.log(formData);
-    //   await signIn(formData);
-    //   if (!isError) {
-    //     onSubmit();
-    //   }
-  }, []);
+  useEffect(() => {
+    reset({
+      firstname: data?.firstname,
+      lastname: data?.lastname,
+    });
+  }, [data, reset]);
+
+  const handleSubmit = useCallback(
+    (formData: AccountFormData) => {
+      if (currentUser?.uid) {
+        updateUser({
+          uid: currentUser.uid,
+          formData,
+        });
+      }
+    },
+    [currentUser, updateUser]
+  );
+
   return (
     <form
       className='flex flex-col gap-4'
@@ -36,30 +53,23 @@ const EditionForm: React.FC = () => {
           label='Firstname'
           {...register("firstname", {
             required: "Firstname is required",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Invalid Firstname",
-            },
           })}
-          error={Boolean(errors.email)}
-          helperText={errors.email?.message as string}
+          error={Boolean(errors.firstname)}
+          helperText={errors.firstname?.message as string}
         />
         <TextField
           fullWidth
           label='Lastname'
           {...register("lastname", {
             required: "Lastname is required",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Invalid Lastname",
-            },
           })}
-          error={Boolean(errors.email)}
-          helperText={errors.email?.message as string}
+          error={Boolean(errors.lastname)}
+          helperText={errors.lastname?.message as string}
         />
       </div>
       <Button
-        // startIcon={isLoading ? <CircularProgress color='secondary' /> : null}
+        startIcon={isLoading ? <CircularProgress color='secondary' /> : null}
+        disabled={!isDirty || isLoading}
         type='submit'
       >
         Save

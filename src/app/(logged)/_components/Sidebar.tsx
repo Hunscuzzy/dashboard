@@ -1,11 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Logout from "@mui/icons-material/Logout";
+import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import { sidebarLinks } from "@/data/navigation";
-import logout from "@/services/auth/logout";
+import { useLogout } from "@/services/auth/queries";
 
 const Sidebar: React.FC = () => {
+  const { mutate: handleLogout, isLoading } = useLogout();
   return (
     <Drawer
       sx={{
@@ -33,12 +35,13 @@ const Sidebar: React.FC = () => {
           ))}
         </ul>
       </nav>
-      <button
-        onClick={logout}
+      <Button
+        onClick={handleLogout as () => void}
+        disabled={isLoading}
         className='mt-auto w-full py-8 text-center justify-center items-center flex gap-2 text-secondary'
       >
         <Logout /> <p>Logout</p>
-      </button>
+      </Button>
     </Drawer>
   );
 };

@@ -5,8 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import { SignUpFormData } from "@/services/auth/types";
-import { useSignUp } from "./effects";
-import { LocalDining } from "@mui/icons-material";
+import { useSignUp } from "@/services/auth/queries";
 
 const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
   const {
@@ -15,11 +14,11 @@ const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
     formState: { errors },
   } = useForm<SignUpFormData>();
 
-  const { signUp, isLoading, isError } = useSignUp();
+  const { mutate: signUp, isLoading, isError } = useSignUp();
 
   const handleSubmit = useCallback(
     async (formData: SignUpFormData) => {
-      await signUp(formData);
+      signUp(formData);
       if (!isError) {
         onSubmit();
       }

@@ -26,7 +26,6 @@ const Breadcrumb: React.FC = () => {
       </Link>
       {pathNames?.map((path, i) => {
         if (i + 1 !== pathNames.length) {
-          console.log(getKeyByValue(path) !== "dashboard");
           return (
             <Link key={i} href={path}>
               {getKeyByValue(path)}

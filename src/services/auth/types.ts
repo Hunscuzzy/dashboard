@@ -3,7 +3,9 @@ export interface SignInFormData {
   password: string;
 }
 
-export interface SignUpFormData extends SignInFormData {
+export interface AccountFormData {
   firstname: string;
   lastname: string;
 }
+
+export interface SignUpFormData extends SignInFormData, AccountFormData {}

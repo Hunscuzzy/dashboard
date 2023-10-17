@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import { SignInFormData } from "@/services/auth/types";
-import { useSignIn } from "./effects";
+import { useSignIn } from "@/services/auth/queries";
 
 const SignInForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
   const {
@@ -14,11 +14,11 @@ const SignInForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
     formState: { errors },
   } = useForm<SignInFormData>();
 
-  const { signIn, isLoading, isError } = useSignIn();
+  const { mutate: signIn, isLoading, isError } = useSignIn();
 
   const handleSubmit = useCallback(
     async (formData: SignInFormData) => {
-      await signIn(formData);
+      signIn(formData);
       if (!isError) {
         onSubmit();
       }
