@@ -1,8 +1,9 @@
 import INTERNALS_LINKS from "@/config/routes";
-import { SvgIconComponent, Videocam } from "@mui/icons-material";
+import PointOfSale from "@mui/icons-material/PointOfSale";
+import Videocam from "@mui/icons-material/Videocam";
 import GridView from "@mui/icons-material/GridView";
-import Code from "@mui/icons-material/Code";
 import Settings from "@mui/icons-material/Settings";
+import { SvgIconComponent } from "@mui/icons-material";
 
 const sidebarLinks: {
   title: string;
@@ -10,7 +11,7 @@ const sidebarLinks: {
   Icon: SvgIconComponent;
 }[] = [
   { title: "Dashboard", uri: INTERNALS_LINKS.DASHBOARD, Icon: GridView },
-  { title: "Freelance", uri: INTERNALS_LINKS.DASHBOARD, Icon: Code },
+  { title: "Entries", uri: INTERNALS_LINKS.ENTRIES, Icon: PointOfSale },
   {
     title: "Video Production",
     uri: INTERNALS_LINKS.DASHBOARD,
