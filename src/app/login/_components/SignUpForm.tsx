@@ -23,7 +23,7 @@ const SignUpForm: React.FC<{ onSubmit: () => void }> = ({ onSubmit }) => {
         onSubmit();
       }
     },
-    [onSubmit]
+    [onSubmit, isError, signUp]
   );
   return (
     <form

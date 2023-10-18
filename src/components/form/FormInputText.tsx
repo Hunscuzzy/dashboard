@@ -1,6 +1,7 @@
 import React from "react";
 import { Control, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
+import clsx from "clsx";
 
 interface Props {
   name: string;
@@ -30,7 +31,7 @@ const FormInputText: React.FC<Props> = ({
           value={value}
           error={!!error}
           helperText={error?.message}
-          className={className}
+          className={clsx("w-full", className)}
         />
       )}
     />

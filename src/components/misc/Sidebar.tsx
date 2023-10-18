@@ -11,10 +11,10 @@ const Sidebar: React.FC = () => {
   return (
     <Drawer
       sx={{
-        width: 240,
         flexShrink: 0,
+        width: 256,
         "& .MuiDrawer-paper": {
-          width: 240,
+          width: 256,
           boxSizing: "border-box",
         },
       }}
