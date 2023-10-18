@@ -1,8 +1,8 @@
 "use client";
 
 import { RevenueEntry } from "@/services/entries/types";
-import BasicTable, { TableHeader } from "../_components/BasicTable";
-import Section from "../_components/Section";
+import BasicTable, { TableHeader } from "@/components/table/BasicTable";
+import Section from "@/components/misc/Section";
 
 const Entries: React.FC = () => {
   const headers: TableHeader<RevenueEntry>[] = [
@@ -21,7 +21,6 @@ const Entries: React.FC = () => {
       date: "2020-01-05",
       amount: 12,
     },
-
     {
       id: "1",
       activityType: "REAL_ESTATE",

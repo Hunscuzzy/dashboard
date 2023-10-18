@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import {
@@ -9,6 +8,7 @@ import {
 } from "@/services/account/queries";
 import { useAuth } from "@/app/_contexts/AuthContext";
 import { AccountFormData } from "@/services/auth/types";
+import FormInputText from "@/components/form/FormInputText";
 
 const EditionForm: React.FC = () => {
   const { currentUser } = useAuth();
@@ -17,16 +17,20 @@ const EditionForm: React.FC = () => {
 
   const {
     formState: { isDirty },
-    register,
     handleSubmit: handleRhfSubmit,
-    formState: { errors },
+    control,
     reset,
-  } = useForm<AccountFormData>();
+  } = useForm<AccountFormData>({
+    defaultValues: {
+      firstname: "",
+      lastname: "",
+    },
+  });
 
   useEffect(() => {
     reset({
-      firstname: data?.firstname,
-      lastname: data?.lastname,
+      firstname: data?.firstname || "",
+      lastname: data?.lastname || "",
     });
   }, [data, reset]);
 
@@ -48,23 +52,17 @@ const EditionForm: React.FC = () => {
       onSubmit={handleRhfSubmit(handleSubmit)}
     >
       <div className='flex gap-2'>
-        <TextField
-          fullWidth
+        <FormInputText
           label='Firstname'
-          {...register("firstname", {
-            required: "Firstname is required",
-          })}
-          error={Boolean(errors.firstname)}
-          helperText={errors.firstname?.message as string}
+          control={control}
+          name='firstname'
+          rules={{ required: "Firstname is required" }}
         />
-        <TextField
-          fullWidth
+        <FormInputText
           label='Lastname'
-          {...register("lastname", {
-            required: "Lastname is required",
-          })}
-          error={Boolean(errors.lastname)}
-          helperText={errors.lastname?.message as string}
+          control={control}
+          name='lastname'
+          rules={{ required: "Lastname is required" }}
         />
       </div>
       <Button
