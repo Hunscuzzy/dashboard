@@ -13,7 +13,7 @@ export interface TableHeader<T> {
 }
 
 interface Props<T> {
-  data: T[];
+  data: T[] | undefined;
   header: TableHeader<T>[];
 }
 
@@ -23,7 +23,7 @@ export default function BasicTable<T>({ data, header }: Props<T>) {
       <Table aria-label='simple table'>
         <TableHead>
           <TableRow>
-            {header.map((cell) => (
+            {header?.map((cell) => (
               <TableCell key={String(cell.id)} align={cell.align}>
                 {String(cell.id).toUpperCase()}
               </TableCell>
@@ -31,7 +31,7 @@ export default function BasicTable<T>({ data, header }: Props<T>) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row, rowIndex) => (
+          {data?.map((row, rowIndex) => (
             <TableRow key={rowIndex}>
               {header.map((cell) => (
                 <TableCell key={String(cell.id)} align={cell.align}>

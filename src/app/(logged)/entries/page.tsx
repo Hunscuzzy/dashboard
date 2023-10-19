@@ -7,34 +7,18 @@ import { RevenueEntry } from "@/services/entries/types";
 import BasicTable, { TableHeader } from "@/components/table/BasicTable";
 import Section from "@/components/misc/Section";
 import AddEntryForm from "./_components/AddEntryForm";
+import { useEntriesQuery } from "@/services/entries/queries";
 
 const Entries: React.FC = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const headers: TableHeader<RevenueEntry>[] = [
     { id: "id" },
-    { id: "activityType" },
+    { id: "category" },
     { id: "date" },
     { id: "amount", align: "right" },
-    { id: "currency" },
   ];
 
-  const data: RevenueEntry[] = [
-    {
-      id: "0",
-      activityType: "CODE",
-      currency: "EUR",
-      date: "2020-01-05",
-      amount: 12,
-    },
-    {
-      id: "1",
-      activityType: "REAL_ESTATE",
-      currency: "EUR",
-      date: "2020-01-03",
-      amount: 1000,
-    },
-  ];
-
+  const { data } = useEntriesQuery();
   return (
     <div>
       <h1>Entries</h1>
