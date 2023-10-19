@@ -1,4 +1,8 @@
-export type Categories = "CODE" | "VIDEO" | "REAL_ESTATE";
+export enum Categories {
+  CODE = "CODE",
+  VIDEO = "VIDEO",
+  REAL_ESTATE = "REAL_ESTATE",
+}
 
 export interface RevenueEntry {
   id: string;
@@ -7,3 +11,5 @@ export interface RevenueEntry {
   date: string;
   description?: string;
 }
+
+export interface RevenueEntryForm extends Omit<RevenueEntry, "id"> {}

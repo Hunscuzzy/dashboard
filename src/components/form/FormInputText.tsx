@@ -6,9 +6,11 @@ import clsx from "clsx";
 interface Props {
   name: string;
   control: Control<any, any>;
-  rules: Record<string, any>;
+  rules?: Record<string, any>;
   label?: string;
   className?: string;
+  type?: React.InputHTMLAttributes<unknown>["type"];
+  multiline?: boolean;
 }
 
 const FormInputText: React.FC<Props> = ({
@@ -17,6 +19,8 @@ const FormInputText: React.FC<Props> = ({
   rules,
   label,
   className,
+  type,
+  multiline,
 }) => {
   return (
     <Controller
@@ -31,6 +35,8 @@ const FormInputText: React.FC<Props> = ({
           value={value}
           error={!!error}
           helperText={error?.message}
+          type={type}
+          multiline={multiline}
           className={clsx("w-full", className)}
         />
       )}

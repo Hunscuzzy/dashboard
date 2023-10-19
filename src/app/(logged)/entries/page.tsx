@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 import { RevenueEntry } from "@/services/entries/types";
 import BasicTable, { TableHeader } from "@/components/table/BasicTable";
 import Section from "@/components/misc/Section";
-import AddEntryForm from "./_components/AddEntryForm";
 import { useEntriesQuery } from "@/services/entries/queries";
+import EntryForm from "./_components/EntryForm";
 
 const Entries: React.FC = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -15,6 +15,7 @@ const Entries: React.FC = () => {
     { id: "id" },
     { id: "category" },
     { id: "date" },
+    { id: "description" },
     { id: "amount", align: "right" },
   ];
 
@@ -47,7 +48,7 @@ const Entries: React.FC = () => {
           onClick={() => setDrawerOpen(false)}
           className='absolute cursor-pointer right-2 top-2'
         />
-        <AddEntryForm />
+        <EntryForm />
       </Drawer>
     </div>
   );
