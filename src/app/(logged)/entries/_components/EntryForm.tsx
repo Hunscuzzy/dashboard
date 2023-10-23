@@ -36,9 +36,7 @@ const EntryForm: React.FC<{
   });
 
   useEffect(() => {
-    console.log(defaultValues);
     if (defaultValues) {
-      console.log("defaultValues");
       reset(defaultValues);
     }
   }, [defaultValues, reset]);
