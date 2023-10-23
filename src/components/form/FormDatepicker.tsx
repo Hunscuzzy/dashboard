@@ -8,6 +8,7 @@ interface Props {
   control: Control<any, any>;
   rules?: Record<string, any>;
   label?: string;
+  placeholder?: string;
   className?: string;
 }
 
@@ -17,6 +18,7 @@ const FormDatepicker: React.FC<Props> = ({
   rules,
   label,
   className,
+  placeholder,
 }) => {
   return (
     <Controller
@@ -27,9 +29,14 @@ const FormDatepicker: React.FC<Props> = ({
         <div className={className}>
           {label && <label>{label}</label>}
           <DatePicker
+            placeholderText={placeholder}
             selected={value ? new Date(value) : null}
             onChange={(date: Date) => onChange(date)}
-            className={error ? "error" : ""}
+            className={
+              error
+                ? "border-red"
+                : "border border-grey-light hover:border-grey rounded p-4"
+            }
           />
           {error && <p>{error.message}</p>}
         </div>

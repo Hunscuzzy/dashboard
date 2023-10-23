@@ -1,18 +1,24 @@
 import React, { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Categories, RevenueEntry } from "@/services/entries/types";
 import FormInputText from "@/components/form/FormInputText";
 import FormSelect from "@/components/form/FormSelect";
 import FormDatepicker from "@/components/form/FormDatepicker";
-import { useCreateEntryMutation } from "@/services/entries/queries";
 
-const EntryForm: React.FC = () => {
-  const { mutate: createEntry } = useCreateEntryMutation();
-  const { handleSubmit: handleRhfSubmit, control } = useForm<RevenueEntry>({
-    // defaultValues: {
-    //   category: "",
-    // },
+const EntryForm: React.FC<{
+  defaultValues: RevenueEntry;
+  onSubmit: () => void;
+  isLoading: boolean;
+}> = ({ defaultValues, onSubmit, isLoading }) => {
+  console.log(defaultValues);
+  const {
+    handleSubmit: handleRhfSubmit,
+    control,
+    formState: { isDirty },
+  } = useForm<RevenueEntry>({
+    defaultValues: defaultValues,
   });
 
   const categoryOptions = useMemo(
@@ -24,18 +30,8 @@ const EntryForm: React.FC = () => {
     []
   );
 
-  const handleSubmit = useCallback(
-    (formdata: RevenueEntry) => {
-      createEntry(formdata);
-    },
-    [createEntry]
-  );
-
   return (
-    <form
-      className='flex flex-col gap-4'
-      onSubmit={handleRhfSubmit(handleSubmit)}
-    >
+    <form className='flex flex-col gap-4' onSubmit={handleRhfSubmit(onSubmit)}>
       <FormSelect
         label='Category'
         control={control}
@@ -55,16 +51,16 @@ const EntryForm: React.FC = () => {
         name='description'
       />
       <FormDatepicker
-        name='selectedDate'
+        name='date'
         control={control}
+        placeholder='Date'
         rules={{ required: "Date is required" }}
       />
-      <div>
+      <div className='fixed bottom-0 flex'>
         <Button
-          // startIcon={isLoading ? <CircularProgress color='secondary' /> : null}
-          // disabled={!isDirty || isLoading}
+          startIcon={isLoading ? <CircularProgress color='secondary' /> : null}
+          disabled={!isDirty || isLoading}
           type='submit'
-          className='fixed bottom-0'
         >
           Save
         </Button>

@@ -1,9 +1,30 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { createEntry, fetchEntries } from "./api";
+import {
+  UseQueryOptions,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
+import {
+  createEntry,
+  deleteEntryById,
+  fetchEntries,
+  fetchEntryById,
+} from "./api";
 import { RevenueEntry } from "./types";
 
 export const useEntriesQuery = () => {
   return useQuery<RevenueEntry[]>("entries", fetchEntries);
+};
+
+export const useEntryByIdQuery = (
+  id: string | undefined,
+  options?: UseQueryOptions<RevenueEntry>
+) => {
+  return useQuery<RevenueEntry>(
+    ["entry", id],
+    () => fetchEntryById(id),
+    options
+  );
 };
 
 export const useCreateEntryMutation = () => {
@@ -11,7 +32,16 @@ export const useCreateEntryMutation = () => {
 
   return useMutation(createEntry, {
     onSuccess: () => {
-      queryClient.invalidateQueries("entries");
+      queryClient.fetchQuery("entries");
+    },
+  });
+};
+
+export const useDeleteEntryMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(deleteEntryById, {
+    onSuccess: () => {
+      queryClient.fetchQuery("entries");
     },
   });
 };

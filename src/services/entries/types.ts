@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export enum Categories {
   CODE = "CODE",
   VIDEO = "VIDEO",
@@ -8,8 +10,7 @@ export interface RevenueEntry {
   id: string;
   category: Categories;
   amount: number;
-  date: string;
+  date: Timestamp;
   description?: string;
 }
-
 export interface RevenueEntryForm extends Omit<RevenueEntry, "id"> {}
