@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -12,26 +12,6 @@ const EntryForm: React.FC<{
   onSubmit: () => void;
   isLoading: boolean;
 }> = ({ defaultValues, onSubmit, isLoading }) => {
-  const {
-    handleSubmit: handleRhfSubmit,
-    control,
-    reset,
-    formState: { isDirty },
-  } = useForm<RevenueEntry>({
-    defaultValues: {
-      category: undefined,
-      amount: 0,
-      date: undefined,
-      description: undefined,
-    },
-  });
-
-  useEffect(() => {
-    if (defaultValues) {
-      reset(defaultValues);
-    }
-  }, [defaultValues, reset]);
-
   const categoryOptions = useMemo(
     () =>
       Object.keys(Categories).map((key) => ({
@@ -40,6 +20,28 @@ const EntryForm: React.FC<{
       })),
     []
   );
+
+  const {
+    handleSubmit: handleRhfSubmit,
+    control,
+    reset,
+    formState: { isDirty },
+  } = useForm<RevenueEntry>({
+    defaultValues: {
+      category: categoryOptions[0]?.value,
+      amount: 0,
+      date: undefined,
+      description: "",
+    },
+  });
+
+  useEffect(() => {
+    console.log(defaultValues);
+    if (defaultValues) {
+      console.log("defaultValues");
+      reset(defaultValues);
+    }
+  }, [defaultValues, reset]);
 
   return (
     <form className='flex flex-col gap-4' onSubmit={handleRhfSubmit(onSubmit)}>
