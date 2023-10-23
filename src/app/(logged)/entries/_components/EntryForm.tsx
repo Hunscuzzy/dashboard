@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -12,14 +12,25 @@ const EntryForm: React.FC<{
   onSubmit: () => void;
   isLoading: boolean;
 }> = ({ defaultValues, onSubmit, isLoading }) => {
-  console.log(defaultValues);
   const {
     handleSubmit: handleRhfSubmit,
     control,
+    reset,
     formState: { isDirty },
   } = useForm<RevenueEntry>({
-    defaultValues: defaultValues,
+    defaultValues: {
+      category: undefined,
+      amount: 0,
+      date: undefined,
+      description: undefined,
+    },
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [defaultValues, reset]);
 
   const categoryOptions = useMemo(
     () =>

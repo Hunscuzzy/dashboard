@@ -14,6 +14,7 @@ import {
   useEntriesQuery,
   useEntryByIdQuery,
   useCreateEntryMutation,
+  useEditEntryMutation,
 } from "@/services/entries/queries";
 import EntryForm from "./_components/EntryForm";
 
@@ -33,28 +34,47 @@ const Entries: React.FC = () => {
   ];
 
   const { data: dataList } = useEntriesQuery();
-  const { data: editItemData } = useEntryByIdQuery(selectedId);
+  const { data: editItemData } = useEntryByIdQuery(selectedId ?? "");
   const { mutate: handleDelete } = useDeleteEntryMutation();
   const { mutate: createEntry, isLoading: isCreating } =
     useCreateEntryMutation();
+  const { mutate: editEntry, isLoading: isEditing } = useEditEntryMutation();
 
-  const handleEdit = useCallback((row: RevenueEntry) => {
-    setSelectedId(row.id);
+  const handleClickEdit = useCallback((id: RevenueEntry["id"]) => {
+    setSelectedId(id);
     setDrawerOpen(true);
   }, []);
 
   const actions = useMemo(
     () => [
-      { onClick: handleEdit, icon: <Edit /> },
-      { onClick: (row) => handleDelete(row.id), icon: <Delete /> },
+      {
+        onClick: (row: RevenueEntry) => handleClickEdit(row.id),
+        icon: <Edit />,
+      },
+      {
+        onClick: (row: RevenueEntry) => handleDelete(row.id),
+        icon: <Delete />,
+      },
     ],
-    [handleDelete, handleEdit]
+    [handleDelete, handleClickEdit]
   );
 
-  const handleSubmitForm = useCallback((formdata: RevenueEntry) => {
-    createEntry(formdata);
+  const handleSubmitForm = useCallback(
+    (formdata: RevenueEntry) => {
+      if (selectedId) {
+        editEntry({ id: selectedId, updatedData: formdata });
+      } else {
+        createEntry(formdata);
+      }
+      setDrawerOpen(false);
+    },
+    [selectedId, editEntry, createEntry]
+  );
+
+  const handleClose = useCallback(() => {
     setDrawerOpen(false);
-  }, []);
+    setSelectedId(null);
+  }, [setDrawerOpen]);
   return (
     <div>
       <h1>Entries</h1>
@@ -67,7 +87,7 @@ const Entries: React.FC = () => {
       <Drawer
         anchor='right'
         open={isDrawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        onClose={handleClose}
         sx={{
           flexShrink: 0,
           width: 400,
@@ -80,13 +100,13 @@ const Entries: React.FC = () => {
         }}
       >
         <Close
-          onClick={() => setDrawerOpen(false)}
+          onClick={handleClose}
           className='absolute cursor-pointer right-2 top-2'
         />
         <EntryForm
           defaultValues={editItemData as RevenueEntry}
           onSubmit={handleSubmitForm}
-          isLoading={isCreating}
+          isLoading={isCreating || isEditing}
         />
       </Drawer>
     </div>

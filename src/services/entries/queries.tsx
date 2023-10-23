@@ -7,6 +7,7 @@ import {
 import {
   createEntry,
   deleteEntryById,
+  editEntryById,
   fetchEntries,
   fetchEntryById,
 } from "./api";
@@ -42,6 +43,16 @@ export const useDeleteEntryMutation = () => {
   return useMutation(deleteEntryById, {
     onSuccess: () => {
       queryClient.fetchQuery("entries");
+    },
+  });
+};
+
+export const useEditEntryMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(editEntryById, {
+    onSettled: () => {
+      queryClient.invalidateQueries("entries");
     },
   });
 };

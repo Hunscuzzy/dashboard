@@ -7,6 +7,7 @@ import {
   getFirestore,
   query,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import firebase_app from "@/config/firebase";
 import { RevenueEntry } from "./types";
@@ -54,6 +55,23 @@ export const deleteEntryById = async (id: string) => {
     return { success: true };
   } catch (error) {
     console.error("Error deleting document: ", error);
+    return { success: false, error };
+  }
+};
+
+export const editEntryById = async ({
+  id,
+  updatedData,
+}: {
+  id: RevenueEntry["id"];
+  updatedData: RevenueEntry;
+}) => {
+  try {
+    const entryRef = doc(db, "entries", id);
+    await updateDoc(entryRef, updatedData as any);
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating document:", error);
     return { success: false, error };
   }
 };

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Control, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
 
 interface Props {
   name: string;
@@ -20,27 +21,39 @@ const FormDatepicker: React.FC<Props> = ({
   className,
   placeholder,
 }) => {
+  const convertToDate = useCallback((value: any) => {
+    if (!value) return null;
+
+    if (value?.toDate) {
+      return dayjs(value.toDate()).toDate();
+    }
+    return new Date(value);
+  }, []);
+
   return (
     <Controller
       name={name}
       control={control}
       rules={rules}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <div className={className}>
-          {label && <label>{label}</label>}
-          <DatePicker
-            placeholderText={placeholder}
-            selected={value ? new Date(value) : null}
-            onChange={(date: Date) => onChange(date)}
-            className={
-              error
-                ? "border-red"
-                : "border border-grey-light hover:border-grey rounded p-4"
-            }
-          />
-          {error && <p>{error.message}</p>}
-        </div>
-      )}
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
+        const selectedDate = convertToDate(value);
+        return (
+          <div className={className}>
+            {label && <label>{label}</label>}
+            <DatePicker
+              placeholderText={placeholder}
+              selected={selectedDate}
+              onChange={(date: Date) => onChange(date)}
+              className={
+                error
+                  ? "border-red"
+                  : "border border-grey-light hover:border-grey rounded p-4"
+              }
+            />
+            {error && <p>{error.message}</p>}
+          </div>
+        );
+      }}
     />
   );
 };
