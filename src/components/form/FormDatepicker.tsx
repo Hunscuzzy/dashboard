@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Control, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import dayjs from "dayjs";
+import { timestampToDate } from "@/utils/date";
 
 interface Props {
   name: string;
@@ -23,9 +23,8 @@ const FormDatepicker: React.FC<Props> = ({
 }) => {
   const convertToDate = useCallback((value: any) => {
     if (!value) return null;
-
     if (value?.toDate) {
-      return dayjs(value.toDate()).toDate();
+      return timestampToDate(value);
     }
     return new Date(value);
   }, []);

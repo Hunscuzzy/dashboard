@@ -7,7 +7,7 @@ import { ActionsProps } from "./BasicTable";
 export interface TableHeaderProps {
   id: string;
   align?: "left" | "right" | "center";
-  format?: (value: unknown) => React.ReactNode;
+  format?: (value: any) => React.ReactNode;
 }
 
 interface Props {
