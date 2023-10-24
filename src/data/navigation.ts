@@ -11,7 +11,7 @@ const sidebarLinks: {
   Icon: SvgIconComponent;
 }[] = [
   { title: "Dashboard", uri: INTERNALS_LINKS.DASHBOARD, Icon: GridView },
-  { title: "Entries", uri: INTERNALS_LINKS.ENTRIES, Icon: PointOfSale },
+  { title: "Revenue", uri: INTERNALS_LINKS.REVENUE, Icon: PointOfSale },
   {
     title: "Video Production",
     uri: INTERNALS_LINKS.DASHBOARD,

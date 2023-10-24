@@ -6,8 +6,8 @@ import { AuthProvider } from "./_contexts/AuthContext";
 export function Providers({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </AuthProvider>
   );
 }

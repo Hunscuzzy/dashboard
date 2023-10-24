@@ -5,52 +5,52 @@ import {
   useQueryClient,
 } from "react-query";
 import {
-  createEntry,
-  deleteEntryById,
-  editEntryById,
-  fetchEntries,
-  fetchEntryById,
+  createRevenue,
+  deleteRevenueById,
+  editRevenueById,
+  fetchRevenue,
+  fetchRevenueById,
 } from "./api";
 import { RevenueEntry } from "./types";
 
-export const useEntriesQuery = () => {
-  return useQuery<RevenueEntry[]>("entries", fetchEntries);
+export const useRevenueQuery = () => {
+  return useQuery<RevenueEntry[]>("revenue", fetchRevenue);
 };
 
-export const useEntryByIdQuery = (
+export const useRevenueByIdQuery = (
   id: string | undefined,
   options?: UseQueryOptions<RevenueEntry>
 ) => {
   return useQuery<RevenueEntry>(
-    ["entry", id],
-    () => fetchEntryById(id),
+    ["revenue", id],
+    () => fetchRevenueById(id),
     options
   );
 };
 
-export const useCreateEntryMutation = () => {
+export const useCreateRevenueMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(createEntry, {
+  return useMutation(createRevenue, {
+    onSuccess: () => {
+      queryClient.fetchQuery("revenue");
+    },
+  });
+};
+
+export const useDeleteRevenueMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(deleteRevenueById, {
     onSuccess: () => {
       queryClient.fetchQuery("entries");
     },
   });
 };
 
-export const useDeleteEntryMutation = () => {
-  const queryClient = useQueryClient();
-  return useMutation(deleteEntryById, {
-    onSuccess: () => {
-      queryClient.fetchQuery("entries");
-    },
-  });
-};
-
-export const useEditEntryMutation = () => {
+export const useEditRevenueMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(editEntryById, {
+  return useMutation(editRevenueById, {
     onSettled: () => {
       queryClient.invalidateQueries("entries");
     },

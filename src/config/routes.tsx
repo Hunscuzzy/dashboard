@@ -1,7 +1,7 @@
 enum INTERNALS_LINKS {
   LOGIN = "/login",
   DASHBOARD = "/dashboard",
-  ENTRIES = "/entries",
+  REVENUE = "/revenue",
   SETTINGS = "/settings",
 }
 

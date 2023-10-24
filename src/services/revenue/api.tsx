@@ -14,8 +14,8 @@ import { RevenueEntry } from "./types";
 
 const db = getFirestore(firebase_app);
 
-export const fetchEntries = async () => {
-  const q = query(collection(db, "entries"));
+export const fetchRevenue = async () => {
+  const q = query(collection(db, "revenue"));
   const querySnapshot = await getDocs(q);
   const entries = querySnapshot.docs.map(
     (doc) =>
@@ -27,8 +27,8 @@ export const fetchEntries = async () => {
   return entries;
 };
 
-export const fetchEntryById = async (id: string) => {
-  const docRef = doc(db, "entries", id);
+export const fetchRevenueById = async (id: string) => {
+  const docRef = doc(db, "revenue", id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
@@ -38,9 +38,9 @@ export const fetchEntryById = async (id: string) => {
   }
 };
 
-export const createEntry = async (newEntry: Omit<RevenueEntry, "id">) => {
+export const createRevenue = async (newEntry: Omit<RevenueEntry, "id">) => {
   try {
-    const docRef = await addDoc(collection(db, "entries"), newEntry);
+    const docRef = await addDoc(collection(db, "revenue"), newEntry);
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error("Error adding document: ", error);
@@ -48,9 +48,9 @@ export const createEntry = async (newEntry: Omit<RevenueEntry, "id">) => {
   }
 };
 
-export const deleteEntryById = async (id: string) => {
+export const deleteRevenueById = async (id: string) => {
   try {
-    const docRef = doc(db, "entries", id);
+    const docRef = doc(db, "revenue", id);
     await deleteDoc(docRef);
     return { success: true };
   } catch (error) {
@@ -59,7 +59,7 @@ export const deleteEntryById = async (id: string) => {
   }
 };
 
-export const editEntryById = async ({
+export const editRevenueById = async ({
   id,
   updatedData,
 }: {
@@ -67,7 +67,7 @@ export const editEntryById = async ({
   updatedData: RevenueEntry;
 }) => {
   try {
-    const entryRef = doc(db, "entries", id);
+    const entryRef = doc(db, "revenue", id);
     await updateDoc(entryRef, updatedData as any);
     return { success: true };
   } catch (error) {

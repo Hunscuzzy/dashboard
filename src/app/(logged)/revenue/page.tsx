@@ -6,19 +6,19 @@ import Delete from "@mui/icons-material/Delete";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import dayjs from "dayjs";
-import { RevenueEntry } from "@/services/entries/types";
+import { RevenueEntry } from "@/services/revenue/types";
 import BasicTable, { TableHeader } from "@/components/table/BasicTable";
 import Section from "@/components/misc/Section";
 import {
-  useDeleteEntryMutation,
-  useEntriesQuery,
-  useEntryByIdQuery,
-  useCreateEntryMutation,
-  useEditEntryMutation,
-} from "@/services/entries/queries";
-import EntryForm from "./_components/EntryForm";
+  useDeleteRevenueMutation,
+  useRevenueQuery,
+  useRevenueByIdQuery,
+  useCreateRevenueMutation,
+  useEditRevenueMutation,
+} from "@/services/revenue/queries";
+import RevenueForm from "./_components/RevenueForm";
 
-const Entries: React.FC = () => {
+const Revenue: React.FC = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -33,12 +33,12 @@ const Entries: React.FC = () => {
     { id: "amount", align: "right" },
   ];
 
-  const { data: dataList } = useEntriesQuery();
-  const { data: editItemData } = useEntryByIdQuery(selectedId ?? "");
-  const { mutate: handleDelete } = useDeleteEntryMutation();
+  const { data: dataList } = useRevenueQuery();
+  const { data: editItemData } = useRevenueByIdQuery(selectedId ?? "");
+  const { mutate: handleDelete } = useDeleteRevenueMutation();
   const { mutate: createEntry, isLoading: isCreating } =
-    useCreateEntryMutation();
-  const { mutate: editEntry, isLoading: isEditing } = useEditEntryMutation();
+    useCreateRevenueMutation();
+  const { mutate: editEntry, isLoading: isEditing } = useEditRevenueMutation();
 
   const handleClickEdit = useCallback((id: RevenueEntry["id"]) => {
     setSelectedId(id);
@@ -103,7 +103,7 @@ const Entries: React.FC = () => {
           onClick={handleClose}
           className='absolute cursor-pointer right-2 top-2'
         />
-        <EntryForm
+        <RevenueForm
           defaultValues={editItemData as RevenueEntry}
           onSubmit={handleSubmitForm}
           isLoading={isCreating || isEditing}
@@ -113,4 +113,4 @@ const Entries: React.FC = () => {
   );
 };
 
-export default Entries;
+export default Revenue;
