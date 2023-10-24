@@ -1,20 +1,24 @@
-import { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
-import { useDeleteRevenueMutation } from "@/services/revenue/queries";
-import { RevenueEntry } from "@/services/revenue/types";
+import { useDeleteDataMutation } from "@/services/entries/queries";
+import { Collections, RevenueEntry } from "@/services/entries/types";
 import { timestampToIsoDate } from "@/utils/date";
 import { TableHeaderProps } from "@/components/table/TableHeader";
 
 export function useActions(
-  setSelectedId: (id: string) => void,
+  setSelectedId: (id: string | null) => void,
   setDrawerOpen: (value: boolean) => void
 ) {
-  const { mutate: handleDelete } = useDeleteRevenueMutation();
-  const handleClickEdit = useCallback((id: RevenueEntry["id"]) => {
-    setSelectedId(id);
-    setDrawerOpen(true);
-  }, []);
+  const { mutate: handleDelete } = useDeleteDataMutation(Collections.REVENUE);
+
+  const handleClickEdit = useCallback(
+    (id: RevenueEntry["id"]) => {
+      setSelectedId(id);
+      setDrawerOpen(true);
+    },
+    [setSelectedId, setDrawerOpen]
+  );
 
   return useMemo(
     () => [

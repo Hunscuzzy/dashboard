@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Categories, RevenueEntry } from "@/services/revenue/types";
+import { Categories, RevenueEntry } from "@/services/entries/types";
 import FormInputText from "@/components/form/FormInputText";
 import FormSelect from "@/components/form/FormSelect";
 import FormDatepicker from "@/components/form/FormDatepicker";

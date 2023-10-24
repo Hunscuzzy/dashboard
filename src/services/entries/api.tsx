@@ -10,37 +10,37 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import firebase_app from "@/config/firebase";
-import { RevenueEntry } from "./types";
+import { Collections } from "./types";
 
 const db = getFirestore(firebase_app);
 
-export const fetchRevenue = async () => {
-  const q = query(collection(db, "revenue"));
+export const fetchData = async (collectionName: Collections) => {
+  const q = query(collection(db, collectionName));
   const querySnapshot = await getDocs(q);
-  const entries = querySnapshot.docs.map(
-    (doc) =>
-      ({
-        id: doc.id,
-        ...doc.data(),
-      }) as RevenueEntry
-  );
+  const entries = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
   return entries;
 };
 
-export const fetchRevenueById = async (id: string) => {
-  const docRef = doc(db, "revenue", id);
+export const fetchById = async (collectionName: Collections, id: string) => {
+  const docRef = doc(db, collectionName, id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    return { id: docSnap.id, ...docSnap.data() } as RevenueEntry;
+    return { id: docSnap.id, ...docSnap.data() };
   } else {
     throw new Error("No such document!");
   }
 };
 
-export const createRevenue = async (newEntry: Omit<RevenueEntry, "id">) => {
+export const createData = async (
+  collectionName: Collections,
+  newEntry: any
+) => {
   try {
-    const docRef = await addDoc(collection(db, "revenue"), newEntry);
+    const docRef = await addDoc(collection(db, collectionName), newEntry);
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error("Error adding document: ", error);
@@ -48,9 +48,9 @@ export const createRevenue = async (newEntry: Omit<RevenueEntry, "id">) => {
   }
 };
 
-export const deleteRevenueById = async (id: string) => {
+export const deleteById = async (collectionName: Collections, id: string) => {
   try {
-    const docRef = doc(db, "revenue", id);
+    const docRef = doc(db, collectionName, id);
     await deleteDoc(docRef);
     return { success: true };
   } catch (error) {
@@ -59,16 +59,18 @@ export const deleteRevenueById = async (id: string) => {
   }
 };
 
-export const editRevenueById = async ({
+export const editById = async ({
+  collectionName,
   id,
   updatedData,
 }: {
-  id: RevenueEntry["id"];
-  updatedData: RevenueEntry;
+  collectionName: Collections;
+  id: string;
+  updatedData: any;
 }) => {
   try {
-    const entryRef = doc(db, "revenue", id);
-    await updateDoc(entryRef, updatedData as any);
+    const entryRef = doc(db, collectionName, id);
+    await updateDoc(entryRef, updatedData);
     return { success: true };
   } catch (error) {
     console.error("Error updating document:", error);
