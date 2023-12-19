@@ -4,15 +4,12 @@ import {
   getDocs,
   getDoc,
   deleteDoc,
-  getFirestore,
   query,
   doc,
   updateDoc,
 } from "firebase/firestore";
-import firebase_app from "@/config/firebase";
+import { db } from "@/config/firebase";
 import { Collections } from "./types";
-
-const db = getFirestore(firebase_app);
 
 export const fetchData = async (collectionName: Collections) => {
   const q = query(collection(db, collectionName));
