@@ -7,6 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import { User, getAuth } from "firebase/auth";
+import "@/config/firebase";
 
 interface AuthContextProps {
   currentUser: User | null;

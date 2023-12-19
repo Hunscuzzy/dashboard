@@ -1,15 +1,11 @@
-import { doc, getFirestore, setDoc } from "firebase/firestore";
-import firebase_app from "@/config/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/config/firebase";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { SignInFormData, SignUpFormData } from "./types";
-
-const auth = getAuth(firebase_app);
-const db = getFirestore(firebase_app);
 
 export async function signIn({ email, password }: SignInFormData) {
   let result = null,
