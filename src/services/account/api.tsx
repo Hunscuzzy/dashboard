@@ -10,11 +10,5 @@ export const fetchUserData = async (userId: string) => {
 
 export const updateUserData = async ({ uid, formData }: UpdateUserDataArgs) => {
   const db = getFirestore();
-  let error;
-  try {
-    await setDoc(doc(db, "users", uid), formData, { merge: true });
-  } catch (e) {
-    error = e;
-  }
-  return { error };
+  return setDoc(doc(db, "users", uid), formData, { merge: true });
 };

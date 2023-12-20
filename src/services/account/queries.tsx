@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { fetchUserData, updateUserData } from "./api";
+import { useNotification } from "@/app/_contexts/NotificationContext";
 
 export const useUserQuery = (userId: string) => {
   return useQuery(["user", userId], () => fetchUserData(userId), {
@@ -9,11 +10,23 @@ export const useUserQuery = (userId: string) => {
 
 export const useUpdateUserMutation = () => {
   const queryClient = useQueryClient();
+  const { addNotification } = useNotification();
 
   return useMutation(updateUserData, {
-    // Après une mise à jour réussie, invalider la requête pour récupérer le nouvel état
     onSuccess: () => {
       queryClient.invalidateQueries(["userQueryKey"]);
+      addNotification({
+        id: "useUpdateUserMutation",
+        message: "User updated successfully",
+        type: "success",
+      });
+    },
+    onError: (error: Error) => {
+      addNotification({
+        id: "useUpdateUserMutation",
+        message: error.message,
+        type: "error",
+      });
     },
   });
 };

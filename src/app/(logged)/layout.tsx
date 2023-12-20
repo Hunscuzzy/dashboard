@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Sidebar from "@/components/misc/Sidebar";
-import Breadcrumb from "@/components/misc/Breadcrumb";
+import Sidebar from "@/components/navigation/Sidebar";
+import Breadcrumb from "@/components/navigation/Breadcrumb";
 import { useAuth } from "../_contexts/AuthContext";
 
 export default function LoggedLayout({
