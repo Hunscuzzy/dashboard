@@ -1,8 +1,8 @@
-import { ThemeOptions } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
-const themeOptions: ThemeOptions = {
+const theme = createTheme({
   typography: {
-    fontSize: 2,
+    fontSize: 12,
   },
   palette: {
     mode: "light",
@@ -25,6 +25,6 @@ const themeOptions: ThemeOptions = {
     },
     divider: "#525252",
   },
-};
+});
 
-export default themeOptions;
+export default theme;

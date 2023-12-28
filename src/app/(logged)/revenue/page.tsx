@@ -51,7 +51,6 @@ const Revenue: React.FC = () => {
 
   return (
     <div>
-      <Title>Revenue</Title>
       <Section>
         <div className='flex justify-end'>
           <Button onClick={() => setDrawerOpen(true)}>Add new entry</Button>
