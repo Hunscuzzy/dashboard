@@ -12,20 +12,20 @@ import {
   useCreateDataMutation,
   useEditDataMutation,
 } from "@/services/entries/queries";
-import RevenueForm from "./_components/RevenueForm";
+import SpendingForm from "./_components/SpendingForm";
 import { useActions, useHeaderTable } from "./_components/effects";
 
-const Revenue: React.FC = () => {
+const Spending: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const { data: dataList } = useDataQuery(Collections.REVENUE);
-  const { data: editItemData } = useByIdQuery(Collections.REVENUE, selectedId);
+  const { data: dataList } = useDataQuery(Collections.SPENDING);
+  const { data: editItemData } = useByIdQuery(Collections.SPENDING, selectedId);
   const { mutate: createEntry, isLoading: isCreating } = useCreateDataMutation(
-    Collections.REVENUE
+    Collections.SPENDING
   );
   const { mutate: editEntry, isLoading: isEditing } = useEditDataMutation(
-    Collections.REVENUE
+    Collections.SPENDING
   );
 
   const handleSubmitForm = useCallback(
@@ -52,7 +52,7 @@ const Revenue: React.FC = () => {
     <div>
       <Section>
         <div className='flex justify-end'>
-          <Button onClick={() => setDrawerOpen(true)}>Add new revenue</Button>
+          <Button onClick={() => setDrawerOpen(true)}>Add new spent</Button>
         </div>
         <BasicTable
           data={dataList}
@@ -79,7 +79,7 @@ const Revenue: React.FC = () => {
           onClick={handleClose}
           className='absolute cursor-pointer right-2 top-2'
         />
-        <RevenueForm
+        <SpendingForm
           defaultValues={editItemData as RevenueEntry}
           onSubmit={handleSubmitForm}
           isLoading={isCreating || isEditing}
@@ -89,4 +89,4 @@ const Revenue: React.FC = () => {
   );
 };
 
-export default Revenue;
+export default Spending;

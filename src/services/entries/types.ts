@@ -18,4 +18,13 @@ export interface RevenueEntry {
   date: Timestamp;
   description?: string;
 }
+
+export interface SpendingEntry {
+  id: string;
+  category: Categories;
+  amount: number;
+  date: Timestamp;
+  description?: string;
+}
+
 export interface RevenueEntryForm extends Omit<RevenueEntry, "id"> {}
