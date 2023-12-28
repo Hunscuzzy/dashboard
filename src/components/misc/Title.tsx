@@ -7,7 +7,11 @@ interface Props {
 }
 
 const Title: React.FC<Props> = ({ children, variant = "h1" }) => {
-  return <Typography variant={variant}>{children}</Typography>;
+  return (
+    <Typography component='h1' variant='h1'>
+      {children}
+    </Typography>
+  );
 };
 
 export default Title;

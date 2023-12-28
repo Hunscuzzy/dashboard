@@ -1,6 +1,9 @@
 import { ThemeOptions } from "@mui/material/styles";
 
 const themeOptions: ThemeOptions = {
+  typography: {
+    fontSize: 2,
+  },
   palette: {
     mode: "light",
     primary: {

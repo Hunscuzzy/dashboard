@@ -17,7 +17,7 @@ import { useActions, useHeaderTable } from "./_components/effects";
 import Title from "@/components/misc/Title";
 
 const Revenue: React.FC = () => {
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const { data: dataList } = useDataQuery(Collections.REVENUE);
@@ -64,7 +64,7 @@ const Revenue: React.FC = () => {
       </Section>
       <Drawer
         anchor='right'
-        open={isDrawerOpen}
+        open={drawerOpen}
         onClose={handleClose}
         sx={{
           flexShrink: 0,
@@ -81,11 +81,13 @@ const Revenue: React.FC = () => {
           onClick={handleClose}
           className='absolute cursor-pointer right-2 top-2'
         />
-        <RevenueForm
-          defaultValues={editItemData as RevenueEntry}
-          onSubmit={handleSubmitForm}
-          isLoading={isCreating || isEditing}
-        />
+        {editItemData && (
+          <RevenueForm
+            defaultValues={editItemData as RevenueEntry}
+            onSubmit={handleSubmitForm}
+            isLoading={isCreating || isEditing}
+          />
+        )}
       </Drawer>
     </div>
   );

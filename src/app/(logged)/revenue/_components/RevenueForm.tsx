@@ -9,7 +9,7 @@ import FormDatepicker from "@/components/form/FormDatepicker";
 
 const RevenueForm: React.FC<{
   defaultValues: RevenueEntry;
-  onSubmit: () => void;
+  onSubmit: (data: any) => void;
   isLoading: boolean;
 }> = ({ defaultValues, onSubmit, isLoading }) => {
   const categoryOptions = useMemo(
